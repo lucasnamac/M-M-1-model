@@ -8,7 +8,7 @@ def menu():
 
 
 def calculo_L(lambida, mi):
-    #Media do numero de clientes presentes
+    #Media do numero de clientes presentes em todo o sistema
     l = (lambida / (lambida/mi))
     return l
 
