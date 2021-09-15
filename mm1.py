@@ -46,8 +46,16 @@ def main():
     print("SIMULAÇÃO DE SISTEMA M/M/1")
     print("*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-    lambida = int(input("Entre com o numero de clientes que chegam por hora no sistema (λ): "))
-    mi = int(input("Entre com o numero de clientes atendidos por hora no sistema (μ): "))
+    
+
+    print("Determinar tempo entre chegadas (TEC):")
+    print("1: Deterministico")
+    print("2: Aleatorio")
+    tec = int(input())
+    if( tec == 1):
+        lambida = int(input("Entre com o numero de clientes que chegam por hora no sistema (λ): "))
+        mi = int(input("Entre com o numero de clientes atendidos por hora no sistema (μ): "))
+
 
     print("OPÇÕES: ")
     option = -1
