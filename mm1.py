@@ -5,7 +5,10 @@ def menu():
     print("4: Probabilidade de se ter X clientes no sistema")
     print("0: Sair\n")
 
-
+def menuConfig():
+    print("\n1: Tempo entre Chegadas (TEC) ser determinístico ou aleatório")
+    print("2: Tempo de serviço (TS) ser determinístico ou aleatório")
+    print("3: Fila com ou sem limite\n")
 
 def calculo_L(lambida, mi):
     #Media do numero de clientes presentes em todo o sistema
@@ -43,9 +46,8 @@ def main():
     print("SIMULAÇÃO DE SISTEMA M/M/1")
     print("*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-    print("Descrição do sistema:")
-    lambida = int(input("Entre com o numero de clientes que chegam por hora no sistema: "))
-    mi = int(input("Entre com o numero de clientes atendidos por hora no sistema: "))
+    lambida = int(input("Entre com o numero de clientes que chegam por hora no sistema (λ): "))
+    mi = int(input("Entre com o numero de clientes atendidos por hora no sistema (μ): "))
 
     print("OPÇÕES: ")
     option = -1
