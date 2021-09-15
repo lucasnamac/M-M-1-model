@@ -1,9 +1,9 @@
 def menu():
-    print("1: Numero medio de clientes na fila esperando atendimento")
+    print("\n1: Numero medio de clientes na fila esperando atendimento")
     print("2: Tempo medio gasto por um cliente no sistema")
     print("3: Numero de clientes atendidos por hora")
     print("4: Probabilidade de se ter X clientes no sistema")
-    print("0: Sair")
+    print("0: Sair\n")
 
 
 
