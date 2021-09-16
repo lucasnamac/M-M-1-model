@@ -1,3 +1,5 @@
+import random
+
 def menu():
     print("\n1: Numero medio de clientes na fila esperando atendimento")
     print("2: Tempo medio gasto por um cliente no sistema")
@@ -51,10 +53,32 @@ def main():
     print("Determinar tempo entre chegadas (TEC):")
     print("1: Deterministico")
     print("2: Aleatorio")
-    tec = int(input())
-    if( tec == 1):
-        lambida = int(input("Entre com o numero de clientes que chegam por hora no sistema (λ): "))
-        mi = int(input("Entre com o numero de clientes atendidos por hora no sistema (μ): "))
+    num = int(input())
+    if( num == 1):
+        tec = int(input("Entre com TEC (tempo entre chegadas de clientes) em minutos: "))
+        lambida = 60/tec
+        print("Tem-se que chegam {} clientes por hora".format(lambida))
+
+    if( num == 2):
+        tec = random.randint(5, 20)
+        print("TEC = {}".format(tec))
+        lambida = 60/tec
+        print("Tem-se que chegam {} clientes por hora".format(lambida))
+    
+    print("Determinar tempo de serviço (TS):")
+    print("1: Deterministico")
+    print("2: Aleatorio")
+    num2 = int(input())
+    if( num2 == 1):
+        ts = int(input("Entre com TS (tempo de serviço para cada cliente) em minutos: "))
+        mi = 60/ts
+        print("São atendidos {} clientes por hora".format(mi))
+
+    if( num2 == 2):
+        ts = random.randint(5, 20)
+        print("TS = {}".format(ts))
+        mi = 60/ts
+        print("São atendidos {} clientes por hora".format(mi))
 
 
     print("OPÇÕES: ")
@@ -72,7 +96,7 @@ def main():
             clientes_no_sistema = int(input("Entre com o valor de X: "))
             print("A probabilidade de se ter {} no sistema eh: {}".format(clientes_no_sistema, calculo_pi(lambida, mi, clientes_no_sistema)))
         else:
-            print("Difite uma opcao válida!")
+            print("Digite uma opcao válida!")
 
 
 if __name__ == "__main__":
