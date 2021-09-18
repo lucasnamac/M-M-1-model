@@ -35,16 +35,19 @@ class Simulation:
         else:
             self.ES=0
             self.HS = 9999 
-            #TODO Generate output value
 
     def calculateStatistics(self):
         return
 
-    def updateStatistics(self):
-        data_aux = [self.TR, self.ES, self.TF, self.HS]
-        self.data.append(data_aux)
-        print(tabulate(self.data, headers=["TR", "ES", "TF", "HS"]))
+
+
+    #NOTE: Os valores não estão alinhados com a tabela. Ajuda nois rsrsrs
+    def updateStatistics(self):   
+        print("\t", "\t", self.TR, self.ES, self.TF, self.HS)
         
+
+    
+    
 
     def generateExponential(self, TEC):
         e = int(np.random.exponential(scale=TEC, size=None))
@@ -60,6 +63,8 @@ class Simulation:
         TS = int(input('Digite os valores para TS: '))
         time = int(input('Digite o tempo de execução: '))
 
+
+        print("Evento\t", "Cliente\t", "TR\t", "ES\t", "TF\t", "HS\t")
         while time>self.TR:
             if self.HC < self.HS:
                 self.processArrival(TEC, TS)
