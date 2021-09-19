@@ -39,7 +39,8 @@ def calculo_pi(lambida, mi, clientes_no_sistema):
 def menu():
     print("\nChoose an option: ")
     print("1: Deterministc Simulation")
-    print("2: Random Simulation")
+    print("2: Random Simulation ")
+    print("0: Exit")
     return
 
 class Deterministic_Simulation:
