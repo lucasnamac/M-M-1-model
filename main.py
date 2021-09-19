@@ -1,7 +1,7 @@
 from math import e
 import numpy as np
 from numpy.random.mtrand import poisson
-from tabulate import tabulate
+import time
 
 
 class Simulation:
@@ -42,8 +42,9 @@ class Simulation:
 
 
     #NOTE: Os valores não estão alinhados com a tabela. Ajuda nois rsrsrs
-    def updateStatistics(self):   
-        print("\t", "\t", self.TR, self.ES, self.TF, self.HS)
+    def updateStatistics(self, status, client):   
+        print("Evento: " f"{status}  ", "Cliente: " f"{client}\t", "TR:" f"{self.TR}\t", "ES:" f"{self.ES}\t", "TF: "f"{self.TF}\t", "HS: "f"{self.HS}\t")
+        time.sleep(2)
         
 
     
@@ -55,22 +56,25 @@ class Simulation:
 
     def generatePoisson(self, TS):
         e = int(np.random.poisson(lam=TS, size=None))
-        #print('valor de e', e)
         return e
 
     def __init__(self):
+        client=0
         TEC = int(input('Digite os valores para TEC: '))
         TS = int(input('Digite os valores para TS: '))
         time = int(input('Digite o tempo de execução: '))
 
 
-        print("Evento\t", "Cliente\t", "TR\t", "ES\t", "TF\t", "HS\t")
+        
         while time>self.TR:
+            client+=1
             if self.HC < self.HS:
                 self.processArrival(TEC, TS)
+                status = "C"
             else:
-                self.processExit(7)
-            self.updateStatistics()
+                self.processExit(TS)
+                status = "S"
+            self.updateStatistics(status, client)
 
         #TODO: Call function calculateStatistics()
 
