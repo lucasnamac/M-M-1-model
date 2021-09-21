@@ -104,8 +104,11 @@ def print_table(lista):
 
 def generate_matrix(cliente,valores_tec,valores_ts,tempo_chegada_relogio,inicio_servico_relogio,tempo_na_fila,tempo_final_servico_relogio,tempo_cliente_sistema,tempo_livre_operador):
     for i in range(0,15):
-        print(" ",cliente[i],"         ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
-                
+        if i >=9:
+            print(" ",cliente[i],"        ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
+        else:
+            print(" ",cliente[i],"         ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
+
     return
 
 def tamanho_fila(tempo_fila):
