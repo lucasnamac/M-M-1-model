@@ -16,7 +16,7 @@ def Tec():
     listaTecs = []
     
     for i in range(0,3):
-        tec = int(input("Entre com o {} TEC (tempo entre chegadas de clientes) em minutos: ".format(i)))
+        tec = int(input("Entre com o {}º TEC (tempo entre chegadas de clientes) em minutos: ".format(i+1)))
         tecList.append(tec)
     for j in range(0,15):
         x = random.choice(tecList)
@@ -29,7 +29,7 @@ def TS():
     listaTs = []
     
     for i in range(0,3):
-        ts = int(input("Entre com o {} TS (tempo de serviço) em minutos: ".format(i)))
+        ts = int(input("Entre com o {}º TS (tempo de serviço) em minutos: ".format(i+1)))
         tsList.append(ts)
     for j in range(0,15):
         x = random.choice(tsList)
