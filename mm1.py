@@ -1,6 +1,6 @@
 import random
 from time import process_time_ns
-from functions import functions
+import functions
 import numpy as np
 
 def menu():
@@ -103,16 +103,34 @@ def print_table(lista):
     return
 
 def generate_matrix(cliente,valores_tec,valores_ts,tempo_chegada_relogio,inicio_servico_relogio,tempo_na_fila,tempo_final_servico_relogio,tempo_cliente_sistema,tempo_livre_operador):
-    matriz = []
     for i in range(0,15):
         print(" ",cliente[i],"         ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
                 
     return
+
+def tamanho_fila(tempo_fila):
+    qtd = 0
+    for i in range(0,15):
+        if tempo_fila[i] != 0:
+            qtd += 1
+    return qtd
+
+def calculo_lambida(valores_tec):
+    aux = sum(valores_tec)/15
+    lambida = 60/aux
+    print("Lambida eh: ",lambida)
+    return lambida
+
+def calculo_mi(valores_ts):
+    aux = sum(valores_ts)/15
+    mi = 60/aux
+    print("MI eh: ",mi)
+    return mi
+
             
 
    
 def main():
-    matriz = []
     cliente = []
     valores_tec = []
     valores_ts = []
@@ -122,6 +140,7 @@ def main():
     tempo_final_servico_relogio = []
     tempo_cliente_sistema = []
     tempo_livre_operador = []
+    qtd_fila = 0
 
     for i in range(1,16):
         cliente.append(i)
@@ -140,33 +159,39 @@ def main():
     tempo_final_servico_relogio = Calculo_Tempo_Final_Servico(tempo_chegada_relogio,inicio_servico_relogio,tempo_na_fila )
     tempo_cliente_sistema = Calculo_Tempo_Cliente_Sistema(valores_ts,tempo_na_fila)
     tempo_livre_operador = Calculo_Tempo_Livre_Operador(tempo_chegada_relogio,valores_ts)
+    qtd_fila = tamanho_fila(tempo_na_fila)
 
     print("Cliente     TEC       T.Chegada.Relogio    TS       T.Ini.Serv.Relo     T.Cli.Fila     T.Final.Serv.Relo    T.Cli.Sis      T.Livre.OP")
     
     
     generate_matrix(cliente,valores_tec,valores_ts,tempo_chegada_relogio,inicio_servico_relogio,tempo_na_fila,tempo_final_servico_relogio,tempo_cliente_sistema,tempo_livre_operador)
 
+    print("\n Tempo medio de espera na fila: ",sum(tempo_na_fila)/15)
+    print("\n Probabilidade de um cliente esperar na fila: ",qtd_fila/15)
+    print("\n Probabilidade do operador estar livre: ",sum(tempo_livre_operador)/tempo_final_servico_relogio[14])
     
+    lambida = calculo_lambida(valores_tec)
+    mi = calculo_mi(valores_ts)
 
 
-    '''
+    
     print("OPÇÕES: ")
     option = -1
     while(option != 0):
         menu()
         option = int(input("Digite uma opcao: "))
         if(option == 1):
-            print(calculo_LQ(lambida, mi))
+            print(functions.calculo_LQ(lambida, mi))
         elif(option == 2):
-            print(calculo_W(lambida, mi))
+            print(functions.calculo_W(lambida, mi))
         elif(option == 3):
             print((lambida/mi)*mi)
         elif(option == 4):
             clientes_no_sistema = int(input("Entre com o valor de X: "))
-            print("A probabilidade de se ter {} no sistema eh: {}".format(clientes_no_sistema, calculo_pi(lambida, mi, clientes_no_sistema)))
+            print("A probabilidade de se ter {} no sistema eh: {}".format(clientes_no_sistema, functions.calculo_pi(lambida, mi, clientes_no_sistema)))
         else:
             print("Digite uma opcao válida!")
-        '''
+        
 
 
 if __name__ == "__main__":
