@@ -1,9 +1,9 @@
 import numpy as np
+import random
 import time
-from Queue import Queue
 from functions import functions
 
-class Deterministic_Simulation(functions):
+class Random_Simulation(functions):
     TR=0
     ES=0
     TF=0
@@ -11,32 +11,31 @@ class Deterministic_Simulation(functions):
     HS=9999
 
     TF_list = []
-    ES_list = []
     TR_list = []
+    ES_list = []
 
-
-    def processArrival(self, TEC, TS):
+    def processArrival(self):
         self.TR=self.HC
         if self.ES==0 :
             self.ES=1
-            pois = self.generatePoisson(TS)
-            self.HS=self.TR + pois
-        
+            ts_values = int(self.MMC_TS())
+            self.HS=self.TR + ts_values     
         else:
             self.TF = self.TF+1
         
-        exp = int(self.generateExponential(TEC))
-        self.HC = self.TR + exp
+        tec_values = int(self.MMC_TEC())
+        self.HC = self.TR + tec_values
+    
 
-    def processExit(self, TS):
+    def processExit(self):
         self.TR = self.HS
         if self.TF>0:
             self.TF=self.TF-1
-            pois = self.generatePoisson(TS)
-            self.HS = self.TR + pois
+            ts_values = int(self.MMC_TS())
+            self.HS = self.TR + ts_values
         else:
             self.ES=0
-            self.HS = 9999 
+            self.HS = 9999
     '''
     def calculateLambda(self, time):
         count=0
@@ -83,9 +82,24 @@ class Deterministic_Simulation(functions):
 
         return mi/(time/60)
     
+    def MMC_TEC(self):
+        lista = []
+        for i in range(0,100):
+            var = random.uniform(0, 1)
+            lista.append(var)
+        return (sum(lista)/len(lista)) * 10
 
+    def MMC_TS(self):
+        lista = []
+        for i in range(0,100):
+            var = random.uniform(0, 1)
+            lista.append(var)
+        return (sum(lista)/len(lista)) * 10
+    
+    def calculateStatistics(self):
+        return
 
-
+    
     def updateStatistics(self, status, client):   
         print("Evento: " f"{status}  ", "Cliente: " f"{client}\t", "TR:" f"{self.TR}\t", "ES:" f"{self.ES}\t", "TF: "f"{self.TF}\t", "HS: "f"{self.HS}\t")
         self.TF_list.append(self.TF)
@@ -93,41 +107,27 @@ class Deterministic_Simulation(functions):
         self.TR_list.append(self.TR)
         time.sleep(0.2)
     
-        
-
-    def generateExponential(self, TEC):
-        e = int(np.random.exponential(scale=TEC, size=None))
-        return e
-
-    def generatePoisson(self, TS):
-        e = int(np.random.poisson(lam=TS, size=None))
-        return e
-
     def __init__(self):
         QClient = []
         client =0
-        TEC = int(input('Digite os valores para TEC: '))
-        TS = int(input('Digite os valores para TS: '))
         time = int(input('Digite o tempo de execução: '))
         c = 0
         
         while time>self.TR:
             
             if self.HC < self.HS:
-                self.processArrival(TEC, TS)
+                self.processArrival()
                 status = "C"
                 client += 1
                 QClient.append(client)
                 self.updateStatistics(status, client)
                 
             else:
-                self.processExit(TS)
+                self.processExit()
                 c = QClient.pop()
                 status = "S"
                 self.updateStatistics(status, c)
-                
-            
-
+        
         mi = self.calculateMI2(time)
         lambd = self.calculateLambda2(time, client)
         #print("LAMBIDA EH {}   MI EH {}".format(lambd,mi))
