@@ -3,7 +3,7 @@ import time
 from Queue import Queue
 from functions import functions
 
-class Deterministic_Simulation(functions):
+class Deterministic_Simulation_lucas(functions):
     TR=0
     ES=0
     TF=0

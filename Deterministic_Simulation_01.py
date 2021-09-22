@@ -1,6 +1,5 @@
 import random
-from time import process_time_ns, sleep
-import functions
+from time import sleep
 import numpy as np
 
 def menu():
