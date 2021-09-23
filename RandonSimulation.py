@@ -1,9 +1,8 @@
 import numpy as np
 import random
 import time
-from functions import functions
 
-class Random_Simulation(functions):
+class Random_Simulation():
     TR=0
     ES=0
     TF=0

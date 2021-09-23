@@ -1,4 +1,3 @@
-from Deterministic_Simulation_01 import Tec
 import numpy as np
 import time
 from Queue import Queue
