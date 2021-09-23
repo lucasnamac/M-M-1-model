@@ -1,9 +1,13 @@
+from Deterministic_Simulation_01 import Tec
 import numpy as np
 import time
 from Queue import Queue
-from functions import functions
+import tabulate
 
-class Deterministic_Simulation_lucas(functions):
+class Deterministic_Simulation_lucas():
+    TEC = 0
+    TS = 0
+    time = 0
     TR=0
     ES=0
     TF=0
@@ -13,133 +17,121 @@ class Deterministic_Simulation_lucas(functions):
     TF_list = []
     ES_list = []
     TR_list = []
+    TM_list = []
+    HS_list = []
+    data = []
 
+    def menu(self):
+        self.TEC = int(input('Digite o valor para TEC: '))
+        self.TS = int(input('Digite o valor para TS: '))
+        self.time = int(input('Digite o tempo de execução: '))
 
     def processArrival(self, TEC, TS):
         self.TR=self.HC
         if self.ES==0 :
             self.ES=1
-            pois = self.generatePoisson(TS)
-            self.HS=self.TR + pois
+            self.HS=self.TR + TS
         
         else:
             self.TF = self.TF+1
         
-        exp = int(self.generateExponential(TEC))
-        self.HC = self.TR + exp
+        self.HC = self.TR + TEC
+
+    
+    def processArrivalLimit(self, TEC, TS, limit):
+        self.TR=self.HC
+        if self.ES==0:
+            self.ES=1
+            self.HS=self.TR + TS
+  
+        else:
+            if(self.TF < limit):
+                self.TF = self.TF+1
+        
+        self.HC = self.TR + TEC
 
     def processExit(self, TS):
         self.TR = self.HS
         if self.TF>0:
             self.TF=self.TF-1
-            pois = self.generatePoisson(TS)
-            self.HS = self.TR + pois
+            self.HS = self.TR + TS
         else:
             self.ES=0
-            self.HS = 9999 
-    '''
-    def calculateLambda(self, time):
-        count=0
-        lambd=0
-
-        for i in self.TR_list:
-            count+=1
-            if i % 60 ==0:
-                lambd+=count
-            count=0
-
-        lambd = lambd/(time/60)
-        lambd = 60/int(lambd)    
-
-        return lambd 
-
-    def calculateMI(self, time):
-        count=0
-        mi=0
-
-        for i in self.TR_list:
-            count+=1
-            if i % 60 ==0:
-                mi+=count
-            count=0
-
-        mi = mi - self.TF_list[-1]
-        mi = mi/(time/60)
-        mi = 60/int(mi)
-            #print(mi)
-        return mi
-    '''
-    
-    def calculateLambda2(self, time, clientes):
-        lambd = clientes/(time/60)
-        return lambd
-    
-    def calculateMI2(self, time):
-        mi=0
-
-        for i in self.TF_list:
-            if i ==0:
-                mi+=1
-
-        return mi/(time/60)
-    
+            self.HS = 9999
 
 
 
-    def updateStatistics(self, status, client):   
-        print("Evento: " f"{status}  ", "Cliente: " f"{client}\t", "TR:" f"{self.TR}\t", "ES:" f"{self.ES}\t", "TF: "f"{self.TF}\t", "HS: "f"{self.HS}\t")
+    def updateStatistics(self, status, client):
+        self.data.append([status, client, self.TR, self.ES, self.TF, self.HC, self.HS])
         self.TF_list.append(self.TF)
         self.ES_list.append(self.ES)
         self.TR_list.append(self.TR)
-        time.sleep(0.2)
+        self.HS_list.append(self.HS - self.TR)
+
+        if self.TR > 0:
+            self.TM_list.append(self.HS - self.TR)
+        return
     
-        
-
-    def generateExponential(self, TEC):
-        e = int(np.random.exponential(scale=TEC, size=None))
-        return e
-
-    def generatePoisson(self, TS):
-        e = int(np.random.poisson(lam=TS, size=None))
-        return e
-
-    def __init__(self):
+    def process_with_queue_limit(self):
         QClient = []
         client =0
-        TEC = int(input('Digite os valores para TEC: '))
-        TS = int(input('Digite os valores para TS: '))
-        time = int(input('Digite o tempo de execução: '))
-        c = 0
+        self.menu()
+        limit = int(input("Digite o tamanho da fila: "))
         
-        while time>self.TR:
+        while self.time>self.TR:
             
             if self.HC < self.HS:
-                self.processArrival(TEC, TS)
-                status = "C"
+                self.processArrivalLimit(self.TEC, self.TS, limit)
+                status = "Chegada"
                 client += 1
                 QClient.append(client)
                 self.updateStatistics(status, client)
                 
             else:
-                self.processExit(TS)
+                self.processExit(self.TS)
                 c = QClient.pop()
-                status = "S"
+                status = "Saída"
                 self.updateStatistics(status, c)
-                
+
+    
+    def process_without_queue_limit(self):
+        QClient = []
+        client =0
+        self.menu()
+        
+        while self.time>self.TR:
             
+            if self.HC < self.HS:
+                self.processArrival(self.TEC, self.TS)
+                status = "Chegada"
+                client += 1
+                QClient.append(client)
+                self.updateStatistics(status, client)
+                
+            else:
+                self.processExit(self.TS)
+                c = QClient.pop()
+                status = "Saída"
+                self.updateStatistics(status, c)
+    
+    def calculateStatistics(self):
+        print("Número medio de entidades na fila: ", sum(self.TF_list)/len(self.TF_list))
+        print("Taxa medio de ocupação do servidor: ", sum(self.ES_list)/len(self.ES_list))
+        print("Tempo medio de uma entidade na fila: ", sum(self.TM_list)/len(self.TM_list))
+        print("Tempo medio no sistema: ", sum(self.HS_list)/len(self.HS_list))
+        
+ 
 
-        mi = self.calculateMI2(time)
-        lambd = self.calculateLambda2(time, client)
-        #print("LAMBIDA EH {}   MI EH {}".format(lambd,mi))
-        print("Numero medio de entidades na fila: ",super().calculo_LQ(lambd, mi))
-        print("Taxa media de ocupação dos servidores: ",super().calculo_LS(lambd, mi))
-        #print("Tempo medio de uma entidade na fila: {:.2f}",super().calculo_LS(lambd, mi))
-        print("Tempo medio no sistema: ", super().calculo_W(lambd, mi))
+    def __init__(self, option2):
+        self.option2 = option2
 
-        '''
-        clientes_hora = client/(time/60) #Lambida
-        #atendimento_clientes_hora =
-        self.calculateMI() #Mi
-        #print("Numero medio de entidades na fila", calculo_LQ(clientes_hora, atendimento_clientes_hora))
-        #print("Tempo medio no sistema", calculo_W(clientes_hora, atendimento_clientes_hora))
-        '''
+        if(option2 == 1):
+            self.process_with_queue_limit()
+        elif(option2 == 2):
+            self.process_without_queue_limit()
+    
+
+
+        
+
+    

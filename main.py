@@ -1,17 +1,22 @@
 from math import e
+from time import sleep
 import numpy as np
-from numpy.random.mtrand import poisson
 from tabulate import tabulate
 from DeterministicSimulation import Deterministic_Simulation_lucas
 from RandonSimulation import Random_Simulation
-import Deterministic_Simulation_01
+
 
 
 def menu():
     print("\nChoose an option: ")
     print("1: Deterministc Simulation Versao 1")
-    print("2: Deterministc Simulation Versao 2")
-    print("3: Random Simulation")
+    print("2: Random Simulation")
+    return
+
+def sub_menu():
+    print("\nChoose an option: ")
+    print("1: With queue")
+    print("2: Without queue")
     return
 
 
@@ -20,13 +25,16 @@ if  __name__ == "__main__":
     
     menu()
     option = int(input())
+    sub_menu()
+    option2 = int(input())
 
     if(option == 1):
-        S = Deterministic_Simulation_lucas()
-    if(option == 2):
-        Deterministic_Simulation_01.main()
+        S = Deterministic_Simulation_lucas(option2)
+        print(tabulate(S.data,headers = ["Evento", "Cliente", "Tempo no relógio", "Estado do servidor", "Tamanho da fila", "Horário de chegada", "Horário de saída"], tablefmt="presto"))
     else:
-        S = Random_Simulation()
+        S = Random_Simulation(option2)
+    
+    S.calculateStatistics()
 
 
 

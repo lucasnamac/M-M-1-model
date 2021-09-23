@@ -8,31 +8,25 @@ def menu():
     print("3: Probabilidade do operador estar livre:")
     print("0: Sair\n")
 
-def Tec():
+def Tec(cliente):
     print("Determinar tempo entre chegadas (TEC):")
     tecList = []
-    listaTecs = []
     
-    for i in range(0,3):
-        tec = int(input("Entre com o {}º TEC (tempo entre chegadas de clientes) em minutos: ".format(i+1)))
+    for i in range(0,cliente):
+        tec = int(input("Entre com o TEC do {}º cliente: ".format(i+1)))
         tecList.append(tec)
-    for j in range(0,15):
-        x = random.choice(tecList)
-        listaTecs.append(x)
-    return listaTecs
 
-def TS():
+    return tecList
+
+def TS(cliente):
     print("Determinar tempo de serviço (TS):")
     tsList = []
-    listaTs = []
     
-    for i in range(0,3):
-        ts = int(input("Entre com o {}º TS (tempo de serviço) em minutos: ".format(i+1)))
+    for i in range(0,cliente):
+        ts = int(input("Entre com o TS do {}º cliente: ".format(i+1)))
         tsList.append(ts)
-    for j in range(0,15):
-        x = random.choice(tsList)
-        listaTs.append(x)
-    return listaTs
+
+    return tsList
 
 
 
@@ -45,7 +39,7 @@ def Calculo_Chegada_Relogio(lista):
     return tempo_chegada_relogio
 
 
-def Calculo_Tempo_Servico(tempo_chegada, tempo_serviço, tempo_na_fila):
+def Calculo_Tempo_Servico(tempo_chegada, tempo_serviço, tempo_na_fila, cliente):
     inicio_service = []
     inicio_service.append(tempo_chegada[0])
     tempo_na_fila.append(0)
@@ -58,7 +52,7 @@ def Calculo_Tempo_Servico(tempo_chegada, tempo_serviço, tempo_na_fila):
         tempo_na_fila.append(inicio_service[1] - tempo_chegada[1])
 
 
-    for i in range(2,15):
+    for i in range(2,cliente):
         if (tempo_chegada[i-1] + tempo_serviço[i-1] <= tempo_chegada[i]):
             inicio_service.append(tempo_chegada[i])
             tempo_na_fila.append(0)
@@ -68,19 +62,19 @@ def Calculo_Tempo_Servico(tempo_chegada, tempo_serviço, tempo_na_fila):
     
     return inicio_service
 
-def Calculo_Tempo_Final_Servico(valores_ts, inicio_servico_relogio):
+def Calculo_Tempo_Final_Servico(valores_ts, inicio_servico_relogio,cliente):
     tempo_final_servico_relogio = []
-    for i in range(0,15):
+    for i in range(0,cliente):
         tempo_final_servico_relogio.append(valores_ts[i] + inicio_servico_relogio[i])
     return tempo_final_servico_relogio
 
-def Calculo_Tempo_Cliente_Sistema(valores_ts,tempo_na_fila):
+def Calculo_Tempo_Cliente_Sistema(valores_ts,tempo_na_fila,cliente):
     tempo_cliente_sistema = []
-    for i in range(0,15):
+    for i in range(0,cliente):
         tempo_cliente_sistema.append(valores_ts[i] + tempo_na_fila[i])
     return tempo_cliente_sistema
 
-def Calculo_Tempo_Livre_Operador(tempo_chegada_relogio,tempo_serviço):
+def Calculo_Tempo_Livre_Operador(tempo_chegada_relogio,tempo_serviço,cliente):
     tempo_livre_operador = []
     tempo_livre_operador.append(tempo_chegada_relogio[0])
 
@@ -89,7 +83,7 @@ def Calculo_Tempo_Livre_Operador(tempo_chegada_relogio,tempo_serviço):
     else:
         tempo_livre_operador.append(0)
 
-    for i in range(2,15):
+    for i in range(2,cliente):
         if (tempo_chegada_relogio[i-1] + tempo_serviço[i-1] <= tempo_chegada_relogio[i]):
             tempo_livre_operador.append(tempo_chegada_relogio[i] - tempo_chegada_relogio[i-1] - tempo_serviço[i-1])
         else:
@@ -101,38 +95,25 @@ def print_table(lista):
     return
 
 def generate_matrix(cliente,valores_tec,valores_ts,tempo_chegada_relogio,inicio_servico_relogio,tempo_na_fila,tempo_final_servico_relogio,tempo_cliente_sistema,tempo_livre_operador):
-    for i in range(0,15):
+    for i in range(0,cliente):
         if i >=9:
-            print(" ",cliente[i],"        ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
+            print(i+1, "        ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
         else:
-            print(" ",cliente[i],"         ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
+            print(i+1, "         ", valores_tec[i],"             ", tempo_chegada_relogio[i],"           ", valores_ts[i],"           ", inicio_servico_relogio[i],"             ", tempo_na_fila[i],"               ", tempo_final_servico_relogio[i],"               ", tempo_cliente_sistema[i],"               ", tempo_livre_operador[i])
 
     return
 
-def tamanho_fila(tempo_fila):
+def tamanho_fila(tempo_fila,cliente):
     qtd = 0
-    for i in range(0,15):
+    for i in range(0,cliente):
         if tempo_fila[i] != 0:
             qtd += 1
     return qtd
 
-def calculo_lambida(valores_tec):
-    aux = sum(valores_tec)/15
-    lambida = 60/aux
-    print("Lambida eh: ",lambida)
-    return lambida
 
-def calculo_mi(valores_ts):
-    aux = sum(valores_ts)/15
-    mi = 60/aux
-    print("MI eh: ",mi)
-    return mi
-
-            
-
+        
    
 def main():
-    cliente = []
     valores_tec = []
     valores_ts = []
     tempo_chegada_relogio = []
@@ -143,26 +124,27 @@ def main():
     tempo_livre_operador = []
     qtd_fila = 0
 
-    for i in range(1,16):
-        cliente.append(i)
-
-    
     
 
     print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
     print("SIMULAÇÃO DE SISTEMA M/M/1 DETERMINISTICO")
     print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+    cliente = 0
+    while(cliente <2):
+        cliente = int(input("Quantos clientes?(mínimo 2): "))
+        if(cliente <2):
+            print("Digite um valor maior ou igual a 2!")
 
-    valores_tec = Tec()
-    valores_ts = TS()
+    valores_tec = Tec(cliente)
+    valores_ts = TS(cliente)
     tempo_chegada_relogio = Calculo_Chegada_Relogio(valores_tec)
-    inicio_servico_relogio = Calculo_Tempo_Servico(tempo_chegada_relogio, valores_ts, tempo_na_fila)
-    tempo_final_servico_relogio = Calculo_Tempo_Final_Servico(valores_ts,inicio_servico_relogio)
-    tempo_cliente_sistema = Calculo_Tempo_Cliente_Sistema(valores_ts,tempo_na_fila)
-    tempo_livre_operador = Calculo_Tempo_Livre_Operador(tempo_chegada_relogio,valores_ts)
-    qtd_fila = tamanho_fila(tempo_na_fila)
+    inicio_servico_relogio = Calculo_Tempo_Servico(tempo_chegada_relogio, valores_ts, tempo_na_fila,cliente)
+    tempo_final_servico_relogio = Calculo_Tempo_Final_Servico(valores_ts,inicio_servico_relogio,cliente)
+    tempo_cliente_sistema = Calculo_Tempo_Cliente_Sistema(valores_ts,tempo_na_fila,cliente)
+    tempo_livre_operador = Calculo_Tempo_Livre_Operador(tempo_chegada_relogio,valores_ts,cliente)
+    qtd_fila = tamanho_fila(tempo_na_fila,cliente)
 
-    print("\nCliente     TEC       T.Chegada.Relogio    TS       T.Ini.Serv.Relo     T.Cli.Fila     T.Final.Serv.Relo      T.Cli.Sis            T.Livre.OP")
+    print("\nCliente     TEC       T.Chegada.Relogio     TS      T.Ini.Serv.Relo     T.Cli.Fila     T.Final.Serv.Relo      T.Cli.Sis          T.Livre.OP")
     
     
     generate_matrix(cliente,valores_tec,valores_ts,tempo_chegada_relogio,inicio_servico_relogio,tempo_na_fila,tempo_final_servico_relogio,tempo_cliente_sistema,tempo_livre_operador)
