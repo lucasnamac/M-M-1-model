@@ -1,9 +1,10 @@
-import numpy as np
+import random
 import time
 from Queue import Queue
 import tabulate
+import math
 
-class DeterministicSimulation():
+class Random_Simulation():
     NClients = 0
     TEC = 0
     TS = 0
@@ -23,9 +24,102 @@ class DeterministicSimulation():
     data = []
 
     def menu(self):
-        self.TEC = int(input('Digite o valor para TEC: '))
-        self.TS = int(input('Digite o valor para TS: '))
         self.time = int(input('Digite o tempo de execução: '))
+        self.TEC = self.TECGenerate()
+        self.TS = self.TSGenerate()
+        
+
+    def TECGenerate(self):
+        options = []
+        TEC = 0
+        aux = 0
+        for i in range(0,100):
+            aux = random.uniform(0,1)
+            options.append(aux)
+
+        k = 1 + 3.3*math.log10(100) #7.6 aprox 8
+        h = max(options)*100/ k
+
+        value = random.choice(options)*100
+        if value >= 0.0 and value <= h: #Classe0_8
+            TEC = (0 + 8)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= h and value < 2*h: #Classe8_16
+            TEC = (8 + 16)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= 2*h and value < 3*h: #Classe16_24
+            TEC = (16 + 24)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= 3*h and value < 4*h: #Classe24_32
+            TEC = (24+ 32)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= 4*h and value < 5*h: #Classe32_40
+            TEC = (32+ 40)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= 5*h and value < 6*h: #Classe40_48
+            TEC = (40+ 48)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= 6*h and value < 7*h: #Classe48_56
+            TEC = (48+ 56)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+        elif value >= 7*h and value < 8*h: #Classe56_64
+            TEC = (56+ 64)/2
+            print("O valor de TEC é: ",TEC)
+            return TEC
+    
+    def TSGenerate(self):
+        options = []
+        TS = 0
+        aux = 0
+        for i in range(0,100):
+            aux = random.uniform(0,1)
+            options.append(aux)
+
+        k = 1 + 3.3*math.log10(100) #7.6 aprox 8
+        h = max(options)*100/ k
+
+        value = random.choice(options)*100
+        if value >= 0.0 and value <= h: #Classe0_8
+            TS = (0 + 8)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= h and value < 2*h: #Classe8_16
+            TS = (8 + 16)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= 2*h and value < 3*h: #Classe16_24
+            TS = (16 + 24)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= 3*h and value < 4*h: #Classe24_32
+            TS = (24+ 32)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= 4*h and value < 5*h: #Classe32_40
+            TS = (32+ 40)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= 5*h and value < 6*h: #Classe40_48
+            TS = (40+ 48)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= 6*h and value < 7*h: #Classe48_56
+            TS = (48+ 56)/2
+            print("O valor de TS é: ",TS)
+            return TS
+        elif value >= 7*h and value < 8*h: #Classe56_64
+            TS = (56+ 64)/2
+            print("O valor de TS é: ",TS)
+            return TS
+
+            
 
     def processArrival(self, TEC, TS):
         self.TR=self.HC

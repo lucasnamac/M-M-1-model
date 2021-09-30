@@ -2,14 +2,14 @@ from math import e
 from time import sleep
 import numpy as np
 from tabulate import tabulate
-from DeterministicSimulation import Deterministic_Simulation_lucas
-from RandonSimulation import Random_Simulation
+from DeterministicSimulation import DeterministicSimulation
+from Random_Simulation import Random_Simulation
 
 
 
 def menu():
     print("\nChoose an option: ")
-    print("1: Deterministc Simulation Versao 1")
+    print("1: Deterministc Simulation:")
     print("2: Random Simulation")
     return
 
@@ -29,10 +29,11 @@ if  __name__ == "__main__":
     option2 = int(input())
 
     if(option == 1):
-        S = Deterministic_Simulation_lucas(option2)
+        S = DeterministicSimulation(option2)
         print(tabulate(S.data,headers = ["Evento", "Cliente", "Tempo no relógio", "Estado do servidor", "Tamanho da fila", "Horário de chegada", "Horário de saída"], tablefmt="presto"))
     else:
         S = Random_Simulation(option2)
+        print(tabulate(S.data,headers = ["Evento", "Cliente", "Tempo no relógio", "Estado do servidor", "Tamanho da fila", "Horário de chegada", "Horário de saída"], tablefmt="presto"))
     
     S.calculateStatistics()
 
