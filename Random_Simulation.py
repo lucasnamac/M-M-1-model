@@ -1,6 +1,5 @@
 import random
 import time
-from Queue import Queue
 import tabulate
 import math
 

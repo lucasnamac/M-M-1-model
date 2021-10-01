@@ -1,6 +1,5 @@
 import numpy as np
 import time
-from Queue import Queue
 import tabulate
 
 class DeterministicSimulation():
