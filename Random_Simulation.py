@@ -84,8 +84,9 @@ class Random_Simulation():
 
         k = 1 + 3.3*math.log10(100) #7.6 aprox 8
         h = max(options)*100/ k
-
+        
         value = random.choice(options)*100
+
         if value >= 0.0 and value <= h: #Classe0_8
             TS = (0 + 8)/2
             print("O valor de TS é: ",TS)
