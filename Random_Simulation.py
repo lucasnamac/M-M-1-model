@@ -42,37 +42,37 @@ class Random_Simulation():
 
         value = random.choice(options)*100
         if value >= 0.0 and value <= h: #Classe0_8
-            TEC = (0 + 8)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (0 + h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= h and value < 2*h: #Classe8_16
-            TEC = (8 + 16)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (h + 2*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= 2*h and value < 3*h: #Classe16_24
-            TEC = (16 + 24)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (2*h + 3*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= 3*h and value < 4*h: #Classe24_32
-            TEC = (24+ 32)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (3*h+ 4*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= 4*h and value < 5*h: #Classe32_40
-            TEC = (32+ 40)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (4*h+ 5*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= 5*h and value < 6*h: #Classe40_48
-            TEC = (40+ 48)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (5*h+ 6*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= 6*h and value < 7*h: #Classe48_56
-            TEC = (48+ 56)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (6*h+ 7*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
         elif value >= 7*h and value < 8*h: #Classe56_64
-            TEC = (56+ 64)/2
-            print("O valor de TEC é: ",TEC)
-            return TEC
+            TEC = (7*h+ 8*h)/2
+            print("O valor de TEC é: ",int(TEC))
+            return int(TEC)
     
     def TSGenerate(self):
         options = []
@@ -88,37 +88,37 @@ class Random_Simulation():
         value = random.choice(options)*100
 
         if value >= 0.0 and value <= h: #Classe0_8
-            TS = (0 + 8)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (0 + h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= h and value < 2*h: #Classe8_16
-            TS = (8 + 16)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (h + 2*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= 2*h and value < 3*h: #Classe16_24
-            TS = (16 + 24)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (2*h + 3*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= 3*h and value < 4*h: #Classe24_32
-            TS = (24+ 32)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (3*h+ 4*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= 4*h and value < 5*h: #Classe32_40
-            TS = (32+ 40)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (4*h+ 5*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= 5*h and value < 6*h: #Classe40_48
-            TS = (40+ 48)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (5*h+ 6*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= 6*h and value < 7*h: #Classe48_56
-            TS = (48+ 56)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (6*h+ 7*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
         elif value >= 7*h and value < 8*h: #Classe56_64
-            TS = (56+ 64)/2
-            print("O valor de TS é: ",TS)
-            return TS
+            TS = (7*h+ 8*h)/2
+            print("O valor de TS é: ",int(TS))
+            return int(TS)
 
             
 
@@ -219,7 +219,7 @@ class Random_Simulation():
         print("Número medio de entidades na fila: ", sum(self.TF_list)/len(self.TF_list))
         print("Taxa medio de ocupação do servidor: ", sum(self.ES_list)/len(self.data))
         print("Tempo medio de uma entidade na fila: ", sum(self.TM_list)/len(self.arrive))
-        print("Tempo medio no sistema: ", sum(self.HS_list)/len(self.arrive))
+        print("Tempo medio no sistema: ", self.TR_list[-1]/len(self.arrive))
         
         
  

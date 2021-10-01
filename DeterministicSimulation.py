@@ -124,7 +124,7 @@ class DeterministicSimulation():
         print("Número medio de entidades na fila: ", sum(self.TF_list)/len(self.TF_list))
         print("Taxa medio de ocupação do servidor: ", sum(self.ES_list)/len(self.data))
         print("Tempo medio de uma entidade na fila: ", sum(self.TM_list)/len(self.arrive))
-        print("Tempo medio no sistema: ", sum(self.HS_list)/len(self.arrive))
+        print("Tempo medio no sistema: ", self.TR_list[-1]/len(self.arrive))
         
         
  
