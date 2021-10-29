@@ -3,7 +3,7 @@ from time import sleep
 import numpy as np
 from tabulate import tabulate
 from DeterministicSimulation import DeterministicSimulation
-from Random_Simulation import Random_Simulation
+from RandomSimulationMM2 import Random_Simulation
 
 
 
