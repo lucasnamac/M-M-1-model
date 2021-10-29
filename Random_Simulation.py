@@ -42,6 +42,7 @@ class Random_Simulation():
         print("\nEscolha uma distribuição para TEC")
         print("1- Distribuição Normal")
         print("2- Distribuição Exponencial")
+        print("3- Distribuição Poisson")
         distributionType = int(input())
         if distributionType == 1:  
             for i in range(0,100):
@@ -55,6 +56,12 @@ class Random_Simulation():
                 aux = np.random.exponential(0.5)
                 if aux < 0:
                     aux = aux * -1
+                options.append(aux)
+        
+        if distributionType == 3:  
+            for i in range(0,100):
+                aux = np.random.poisson(lam=5)
+                aux = aux/10
                 options.append(aux)
 
         k = 1 + 3.3*math.log10(100) #7.6 aprox 8
@@ -100,6 +107,8 @@ class Random_Simulation():
         print("\nEscolha uma distribuição para TS")
         print("1- Distribuição Normal")
         print("2- Distribuição Exponencial")
+        print("3- Distribuição Poisson")
+
         distributionType = int(input())
         if distributionType == 1:  
             for i in range(0,100):
@@ -113,6 +122,12 @@ class Random_Simulation():
                 aux = np.random.exponential(0.5)
                 if aux < 0:
                     aux = aux * -1
+                options.append(aux)
+
+        if distributionType == 3:  
+            for i in range(0,100):
+                aux = np.random.poisson(lam=5)
+                aux = aux/10
                 options.append(aux)
 
         k = 1 + 3.3*math.log10(100) #7.6 aprox 8
