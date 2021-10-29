@@ -1,4 +1,5 @@
 import random
+import numpy as np
 import time
 import tabulate
 import math
@@ -26,15 +27,35 @@ class Random_Simulation():
         self.time = int(input('Digite o tempo de execução: '))
         self.TEC = self.TECGenerate()
         self.TS = self.TSGenerate()
+        return
+
+    def menuDistributions(self):
+        print("1- Distribuição Normal")
+        print("2- Distribuição Exponencial")
+        return
         
 
     def TECGenerate(self):
         options = []
         TEC = 0
         aux = 0
-        for i in range(0,100):
-            aux = random.uniform(0,1)
-            options.append(aux)
+        print("\nEscolha uma distribuição para TEC")
+        print("1- Distribuição Normal")
+        print("2- Distribuição Exponencial")
+        distributionType = int(input())
+        if distributionType == 1:  
+            for i in range(0,100):
+                aux = np.random.normal(0, 1)
+                if aux < 0:
+                    aux = aux * -1
+                options.append(aux)
+
+        if distributionType == 2:  
+            for i in range(0,100):
+                aux = np.random.exponential(0.5)
+                if aux < 0:
+                    aux = aux * -1
+                options.append(aux)
 
         k = 1 + 3.3*math.log10(100) #7.6 aprox 8
         h = max(options)*100/ k
@@ -76,10 +97,23 @@ class Random_Simulation():
     def TSGenerate(self):
         options = []
         TS = 0
-        aux = 0
-        for i in range(0,100):
-            aux = random.uniform(0,1)
-            options.append(aux)
+        print("\nEscolha uma distribuição para TS")
+        print("1- Distribuição Normal")
+        print("2- Distribuição Exponencial")
+        distributionType = int(input())
+        if distributionType == 1:  
+            for i in range(0,100):
+                aux = np.random.normal(0, 1)
+                if aux < 0:
+                    aux = aux * -1
+                options.append(aux)
+
+        if distributionType == 2:  
+            for i in range(0,100):
+                aux = np.random.exponential(0.5)
+                if aux < 0:
+                    aux = aux * -1
+                options.append(aux)
 
         k = 1 + 3.3*math.log10(100) #7.6 aprox 8
         h = max(options)*100/ k
@@ -89,34 +123,42 @@ class Random_Simulation():
         if value >= 0.0 and value <= h: #Classe0_8
             TS = (0 + h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= h and value < 2*h: #Classe8_16
             TS = (h + 2*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= 2*h and value < 3*h: #Classe16_24
             TS = (2*h + 3*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= 3*h and value < 4*h: #Classe24_32
             TS = (3*h+ 4*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= 4*h and value < 5*h: #Classe32_40
             TS = (4*h+ 5*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= 5*h and value < 6*h: #Classe40_48
             TS = (5*h+ 6*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= 6*h and value < 7*h: #Classe48_56
             TS = (6*h+ 7*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
         elif value >= 7*h and value < 8*h: #Classe56_64
             TS = (7*h+ 8*h)/2
             print("O valor de TS é: ",int(TS))
+            time.sleep(1.5)
             return int(TS)
 
             

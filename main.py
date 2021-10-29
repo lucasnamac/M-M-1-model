@@ -15,8 +15,8 @@ def menu():
 
 def sub_menu():
     print("\nChoose an option: ")
-    print("1: With queue")
-    print("2: Without queue")
+    print("1: With queue limit")
+    print("2: Without queue limit")
     return
 
 
