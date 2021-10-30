@@ -2,7 +2,7 @@ import numpy as np
 import time
 import tabulate
 
-class DeterministicSimulation():
+class DeterministicSimulationMM1():
     NClients = 0
     TEC = 0
     TS = 0

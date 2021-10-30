@@ -32,11 +32,6 @@ class RandomSimulationMM2():
         self.TS = self.TSGenerate()
         return
 
-    def menuDistributions(self):
-        print("1- Distribuição Normal")
-        print("2- Distribuição Exponencial")
-        return
-        
 
     def TECGenerate(self):
         options = []
@@ -47,23 +42,28 @@ class RandomSimulationMM2():
         print("2- Distribuição Exponencial")
         print("3- Distribuição Poisson")
         distributionType = int(input())
+        lamb = int(input("Entre com o valor de lambida: "))
         if distributionType == 1:  
             for i in range(0,100):
-                aux = np.random.normal(0, 1)
+                aux = np.random.normal(0, lamb)
                 if aux < 0:
                     aux = aux * -1
+                if aux >1:
+                    aux = aux/10
                 options.append(aux)
 
         if distributionType == 2:  
             for i in range(0,100):
-                aux = np.random.exponential(0.5)
+                aux = np.random.exponential(lamb)
                 if aux < 0:
                     aux = aux * -1
+                if aux >1:
+                    aux = aux/10
                 options.append(aux)
         
         if distributionType == 3:  
             for i in range(0,100):
-                aux = np.random.poisson(lam=5)
+                aux = np.random.poisson(lam=lamb)
                 aux = aux/10
                 options.append(aux)
 
@@ -113,23 +113,28 @@ class RandomSimulationMM2():
         print("3- Distribuição Poisson")
 
         distributionType = int(input())
+        lamb = int(input("Entre com o valor de lambida: "))
         if distributionType == 1:  
             for i in range(0,100):
-                aux = np.random.normal(0, 1)
+                aux = np.random.normal(0, lamb)
                 if aux < 0:
                     aux = aux * -1
+                if aux >1:
+                    aux = aux/10
                 options.append(aux)
 
         if distributionType == 2:  
             for i in range(0,100):
-                aux = np.random.exponential(0.5)
+                aux = np.random.exponential(lamb)
                 if aux < 0:
                     aux = aux * -1
+                if aux >1:
+                    aux = aux/10
                 options.append(aux)
-
+        
         if distributionType == 3:  
             for i in range(0,100):
-                aux = np.random.poisson(lam=5)
+                aux = np.random.poisson(lam=lamb)
                 aux = aux/10
                 options.append(aux)
 
