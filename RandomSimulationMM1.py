@@ -3,7 +3,8 @@ import time
 import tabulate
 import math
 
-class Random_Simulation():
+class RandomSimulationMM1():
+    
     NClients = 0
     TEC = 0
     TS = 0

@@ -3,12 +3,8 @@ from time import sleep
 import numpy as np
 from tabulate import tabulate
 from DeterministicSimulation import DeterministicSimulation
-<<<<<<< Updated upstream
-from RandomSimulationMM2 import Random_Simulation
-=======
-from MM1RandomSimulation import MM1RandomSimulation
-from MM2RandomSimulation import MM2RandomSimulation
->>>>>>> Stashed changes
+from RandomSimulationMM2 import RandomSimulationMM2
+from RandomSimulationMM1 import RandomSimulationMM1
 
 
 
@@ -38,10 +34,10 @@ if  __name__ == "__main__":
         S = DeterministicSimulation(option2)
         print(tabulate(S.data,headers = ["Evento", "Cliente", "Tempo no relógio", "Estado do servidor", "Tamanho da fila", "Horário de chegada", "Horário de saída"], tablefmt="presto"))
     elif (option ==2):
-        S = MM1RandomSimulation(option2)
+        S = RandomSimulationMM1(option2)
         print(tabulate(S.data,headers = ["Evento", "Cliente", "Tempo no relógio", "Estado do servidor", "Tamanho da fila", "Horário de chegada", "Horário de saída"], tablefmt="presto"))
     else:
-        S = MM2RandomSimulation(option2)
+        S = RandomSimulationMM2(option2)
         print(tabulate(S.data,headers = ["Evento", "Cliente", "Tempo no relógio", "Nº Servidor","Estado do servidor", "Tamanho da fila", "Horário de chegada", "Horário de saída"], tablefmt="presto"))
 
     S.calculateStatistics()
